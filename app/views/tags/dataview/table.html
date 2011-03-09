@@ -1,0 +1,65 @@
+*{ dataview.table tag }*
+*{ Display a table from a list of a given Play! model }*
+*{ @param data List of models to display }*
+*{ @param columns (optional) Map (label −> value) of columns to display }*
+*{ @param options (optional) Map (option −> value) }*
+#{if _arg.size() == 0}
+	&{'dataview.nodata'}
+#{/if}
+#{else}
+	%{
+		data = _arg
+		// Check if there is a “columns” attribute
+		if (!_columns) {
+			// Load all the available properties
+			dataType = data.get(0).getClass() // We know there’s at least one element in the data list
+			factory = play.db.Model.Manager.factoryFor(dataType)
+			_columns = new HashMap()
+			factory.listProperties().each {
+				//if (!(data.get(0)."$it.name" instanceof Collection)) {
+					_columns.put(it.name, it.name)
+				//}
+			}
+		}
+	}%
+	<table class="list">
+		<thead>
+			<tr class="item">
+				#{list _columns.keySet(), as: 'label'}
+					<th>&{label}</th>
+				#{/list}
+			</tr>
+		</thead>
+		#{list data, as:'row'}
+			<tr class="item ${data_parity} ${_options?.get('rowClass')}">
+			#{list _columns.values(), as:'value'}
+				<td>
+					%{
+						if (value instanceof String) {
+							// A string means a data property
+							/*features = value.split('\\.')
+							result = row
+							features.each {
+								result = result?."$it"
+							}
+							if (result) {
+								out.print(result)
+							} else {
+								out.print(value)
+							}*/
+							result = row?."$value"
+							if (result)
+								out.print(result)
+							else
+								out.print(value)
+						} else {
+							// Else it’s a closure
+							out.print(value(row))
+						}
+					}%
+				</td>
+			#{/list}
+			</tr>
+		#{/list}
+	</table>
+#{/else}
