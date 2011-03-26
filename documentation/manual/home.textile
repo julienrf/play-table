@@ -1,0 +1,19 @@
+h1. Play! DataView Module
+
+This module make rendering data in views easier by providing a set of templates tags.
+
+h2. Installation
+
+Install and enable this module as any other
+%(Play! module)"Play! Documentation":http://www.playframework.org/documentation/latest/modules%.
+
+h2. DataView templates tags
+
+h3. table
+
+The *table* tag generates a HTML @<table>@:
+
+bc.  #{table items, as: 'item'}
+  #{column 'title1'}${item.property1}#{/column}
+  #{column 'title2'}${item.property2}#{/column}
+#{/table}

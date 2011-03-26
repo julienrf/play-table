@@ -32,7 +32,12 @@ public class DataViewTags extends FastTags {
 
 		String rowClass = args.containsKey("rowClass") ? (String)args.get("rowClass") : "";
 
-		if (body != null) {
+        if (body == null) {
+            // Automatically fill the table content with the models properties
+        } else {
+            // Fill the table content with the execution of its body
+
+            // A first time for the header row
 			TagContext.current().data.put("dataview.state", "head");
 			if (rowClass.isEmpty()) {
 				out.println("<tr>");
@@ -41,7 +46,8 @@ public class DataViewTags extends FastTags {
 			}
 			body.call();
 			out.println("</tr>");
-			
+
+            // Then for each row
 			TagContext.current().data.put("dataview.state", "content");
 			int index = 0;
 			for (Object row : data) {

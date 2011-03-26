@@ -1,3 +1,5 @@
 h1. Module DataView
 
 This module aims to simplify the code needed to display data in views.
+
+See the %(documentation):documentation/manual/home.textile% for more information
