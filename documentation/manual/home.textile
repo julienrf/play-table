@@ -1,14 +1,14 @@
-h1. Play! DataView Module
+h1. Play! Table Module
 
-This module eases displaying data in views.
+This module eases displaying data in HTML tables.
 
 h2. Installation
 
 Install and enable this module as any other "Play! module(Play! Documentation)":http://www.playframework.org/documentation/latest/modules.
 
-h2. DataView templates tags
+h2. Table templates tags
 
-The module just provides a set of templates tags which can be directly used in your Play! views.
+The module just provides two templates tags which can be directly used in your Play! views.
 
 h3. table
 

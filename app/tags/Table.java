@@ -1,4 +1,4 @@
-package ext;
+package tags;
 
 import groovy.lang.Closure;
 import play.Play;
@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
 
-public class DataViewTags extends FastTags {
+public class Table extends FastTags {
 
     public static void _table(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
 
@@ -31,7 +31,7 @@ public class DataViewTags extends FastTags {
 
         // Ensure data are not empty
         if (!data.iterator().hasNext()) {
-            out.println(Messages.get("dataview.nodata"));
+            out.println(Messages.get("table.nodata"));
             return;
         }
 

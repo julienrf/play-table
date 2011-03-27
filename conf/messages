@@ -1,5 +1,5 @@
-# Default dataview messages
+# Default table messages
 # You can specialize this file for each language.
 # For exemple, for french create a messages.fr file
 
-dataview.nodata=No data to display
+table.nodata=No data to display
