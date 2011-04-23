@@ -4,7 +4,7 @@ This module eases displaying data in HTML tables.
 
 h2. Installation
 
-Install and enable this module as any other "Play! module(Play! Documentation)":http://www.playframework.org/documentation/latest/modules.
+Install and enable this module as any other "Play! module":http://www.playframework.org/documentation/latest/modules.
 
 h2. Table templates tags
 
