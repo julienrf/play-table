@@ -21,7 +21,7 @@ public class Table extends FastTags {
     public static void _table(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) {
 
         // Retrieve the data
-        final Iterable<?> data = (Iterable<?>) args.get("arg");
+        final Iterable<?> data = (Iterable<?>) args.remove("arg");
         if (data == null) {
             throw new TemplateExecutionException(template.template,
                                                  fromLine,
@@ -44,7 +44,7 @@ public class Table extends FastTags {
             if (Model.class.isAssignableFrom(clazz)) {
                 Map<String, String> properties;
                 if (args.containsKey("columns")) {
-                    properties = (Map<String, String>)args.get("columns");
+                    properties = (Map<String, String>)args.remove("columns");
                 } else {
                     // Display all properties
                     properties = new LinkedHashMap<String, String>();
@@ -61,7 +61,7 @@ public class Table extends FastTags {
             }
         } else {
             // Fill the table content with the execution of its body
-            final String it = (String) args.get("as");
+            final String it = (String) args.remove("as");
             if (it == null) {
                 throw new TemplateExecutionException(template.template,
                                                      fromLine,
@@ -71,15 +71,11 @@ public class Table extends FastTags {
             contentPrinter = new TagPrinter(body, it);
         }
         
-        // Handle the optional “class” parameter
-        if (!args.containsKey("class")) {
-            out.println("<table>");
-        } else {
-            out.println("<table class=\"" + args.get("class") + "\">");
-        }
-
         // Handle the optional “rowClass” parameter
-        final String rowClass = args.containsKey("rowClass") ? (String) args.get("rowClass") : "";
+        final String rowClass = args.containsKey("rowClass") ? (String) args.remove("rowClass") : "";
+
+        // Interpret all remaining parameters as HTML attributes for the <table> tag
+        printTag("table", args, out);
 
         // A first time for the header row
         printStartTr(rowClass, out);
@@ -115,21 +111,32 @@ public class Table extends FastTags {
             // Display the label
             out.print("<th>");
             if (args.containsKey("arg")) {
-                out.print(args.get("arg"));
+                out.print(args.remove("arg"));
             }
             out.println("</th>");
         } else {
             // Display the content
-            if (!args.containsKey("class")) {
-                out.print("<td>");
-            } else {
-                out.print("<td class=\"" + args.get("class") + "\">");
-            }
+        	printTag("td", args, out);
             if (body != null) {
                 body.call();
             }
             out.println("</td>");
         }
+    }
+    
+    /**
+     * Helper to print a tag with attributes
+     * @param name Name of the tag, e.g. table or tr
+     * @param attributes Map of name-value attributes
+     * @param out Target
+     */
+    private static void printTag(final String name, final Map<?, ?> attributes, final PrintWriter out) {
+    	StringBuilder tag = new StringBuilder("<").append(name);
+        for (Map.Entry<?, ?> entry : attributes.entrySet()) {
+			tag .append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
+        }
+        tag.append(">");
+        out.println(tag);
     }
 
     private static void printStartTr(final String rowClass, final PrintWriter out) {
