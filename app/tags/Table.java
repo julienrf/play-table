@@ -206,7 +206,7 @@ public class Table extends FastTags {
             for (String property : properties.keySet()) {
                 out.print("<td>");
                 try {
-                    out.print(model.getClass().getField(property).get(model));
+                    out.print(play.utils.HTML.htmlEscape((String) model.getClass().getField(property).get(model)));
                 } catch (Throwable t) {}
                 out.println("</td>");
             }
