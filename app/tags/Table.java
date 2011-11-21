@@ -78,10 +78,13 @@ public class Table extends FastTags {
         printTag("table", args, out);
 
         // A first time for the header row
+        out.println("<thead>");
         printStartTr(rowClass, out);
         contentPrinter.printHead(out);
         printEndTr(out);
-
+        out.println("</thead>");
+        
+	out.println("<tbody>");
         // Then for each row
         int index = 1;
         for (Object row : data) {
@@ -95,6 +98,7 @@ public class Table extends FastTags {
 
             index++;
         }
+        out.println("</tbody>");
         out.println("</table>");
     }
 
