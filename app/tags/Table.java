@@ -84,7 +84,7 @@ public class Table extends FastTags {
         printEndTr(out);
         out.println("</thead>");
         
-	out.println("<tbody>");
+        out.println("<tbody>");
         // Then for each row
         int index = 1;
         for (Object row : data) {
@@ -120,7 +120,7 @@ public class Table extends FastTags {
             out.println("</th>");
         } else {
             // Display the content
-        	printTag("td", args, out);
+            printTag("td", args, out);
             if (body != null) {
                 body.call();
             }
@@ -206,7 +206,7 @@ public class Table extends FastTags {
             for (String property : properties.keySet()) {
                 out.print("<td>");
                 try {
-                    out.print(play.utils.HTML.htmlEscape((String) model.getClass().getField(property).get(model)));
+                    out.print(play.utils.HTML.htmlEscape(model.getClass().getField(property).get(model).toString()));
                 } catch (Throwable t) {}
                 out.println("</td>");
             }

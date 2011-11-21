@@ -60,6 +60,11 @@ bc. #{table users, as: 'user'}
 
 h2. Changelog
 
+h3. v1.2.2
+
+ * Generate @<thead>@ and @<tbody>@ tags (thanks to "jbtbnl":https://github.com/jbtbnl)
+ * HTML-escape model fields to prevent XSS
+
 h3. v1.2.1
 
 * Allow to set arbitrary attributes to the @<table>@ and the @<tr>@ tags ("Github issue #1":https://github.com/julienrf/play-table/issues/1).
