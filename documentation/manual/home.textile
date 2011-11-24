@@ -55,7 +55,7 @@ Its first parameter sets the column title and its body defines the column conten
 You can also pass additional parameters to add attributes to the @<td>@ element:
 
 bc. #{table users, as: 'user'}
-  #{column 'Name', class: 'user-column-name'}${user.fullname}#{/table}
+  #{column 'Name', class: 'user-column-name'}${user.fullname}#{/column}
 #{/table}
 
 h2. Changelog
