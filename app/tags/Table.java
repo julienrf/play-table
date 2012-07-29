@@ -115,7 +115,12 @@ public class Table extends FastTags {
             // Display the label
             out.print("<th>");
             if (args.containsKey("arg")) {
-                out.print(args.remove("arg"));
+                String columnName = String.valueOf(args.remove("arg"));
+                if(columnName.startsWith("&")) {
+                    columnName = columnName.substring(1);
+                    columnName = Messages.get(columnName);
+                } 
+                out.print(columnName);
             }
             out.println("</th>");
         } else {
